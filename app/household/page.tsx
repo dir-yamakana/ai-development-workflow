@@ -342,7 +342,7 @@ export default function HouseholdPage() {
                         cx="50%"
                         cy="50%"
                         outerRadius={100}
-                        label={(entry) => `${entry.category}: ${formatCurrency(entry.amount)}`}
+                        label={(entry: { category: string; amount: number }) => `${entry.category}: ${formatCurrency(entry.amount)}`}
                         labelLine={false}
                       >
                         {expenseByCategory.map((entry, index) => (
@@ -370,7 +370,7 @@ export default function HouseholdPage() {
                         cx="50%"
                         cy="50%"
                         outerRadius={100}
-                        label={(entry) => `${entry.category}: ${formatCurrency(entry.amount)}`}
+                        label={(entry: { category: string; amount: number }) => `${entry.category}: ${formatCurrency(entry.amount)}`}
                         labelLine={false}
                       >
                         {incomeByCategory.map((entry, index) => (
