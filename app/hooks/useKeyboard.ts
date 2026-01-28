@@ -17,6 +17,9 @@ interface KeyboardHandlers {
  * useEffectが必要な理由: 外部システム（DOM）との同期
  */
 export function useKeyboard(handlers: KeyboardHandlers, enabled = true): void {
+  // 個別のハンドラー関数を分解して依存配列に含める
+  const { onLeft, onRight, onDown, onUp, onSpace } = handlers;
+
   useEffect(() => {
     if (!enabled) return;
 
@@ -24,23 +27,23 @@ export function useKeyboard(handlers: KeyboardHandlers, enabled = true): void {
       switch (event.key) {
         case 'ArrowLeft':
           event.preventDefault();
-          handlers.onLeft?.();
+          onLeft?.();
           break;
         case 'ArrowRight':
           event.preventDefault();
-          handlers.onRight?.();
+          onRight?.();
           break;
         case 'ArrowDown':
           event.preventDefault();
-          handlers.onDown?.();
+          onDown?.();
           break;
         case 'ArrowUp':
           event.preventDefault();
-          handlers.onUp?.();
+          onUp?.();
           break;
         case ' ':
           event.preventDefault();
-          handlers.onSpace?.();
+          onSpace?.();
           break;
       }
     };
@@ -51,5 +54,5 @@ export function useKeyboard(handlers: KeyboardHandlers, enabled = true): void {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handlers, enabled]);
+  }, [onLeft, onRight, onDown, onUp, onSpace, enabled]);
 }
