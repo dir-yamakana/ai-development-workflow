@@ -1,0 +1,20 @@
+name: Build Check
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
+jobs:
+  build-check:
+    name: Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: "actions/checkout@v5"
+      - name: Setup Node.js
+        uses: "actions/setup-node@v4"
+        with:
+          node-version: "24"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - name: build
+        run: npm run build
